@@ -1,0 +1,29 @@
+{% extends 'base/layout.html' %}
+{% load static %}
+
+{% block title %}Terminal - {{ device.name }}{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                <strong>Terminal: {{ device.name }}</strong>
+                {% if device.primary_ip4 %}
+                    <span class="badge badge-info">{{ device.primary_ip4.address.ip }}</span>
+                {% elif device.primary_ip6 %}
+                    <span class="badge badge-info">{{ device.primary_ip6.address.ip }}</span>
+                {% endif %}
+            </div>
+            <div class="card-body" style="padding: 0; height: calc(100vh - 200px);">
+                <iframe 
+                    src="{{ iframe_url }}" 
+                    style="width: 100%; height: 100%; border: none;"
+                    allow="clipboard-read; clipboard-write"
+                    sandbox="allow-same-origin allow-scripts allow-forms allow-modals"
+                ></iframe>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
